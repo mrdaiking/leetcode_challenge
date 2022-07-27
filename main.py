@@ -132,7 +132,6 @@ def search(nums, target):
 # print(containsDuplicate([1, 2, 3, 4, 5, 6, 7]))
 
 def insertionSort(nums):
-
     for i in range(1, len(nums)):
         key = nums[i]
         sortedIdx = i - 1
@@ -140,14 +139,48 @@ def insertionSort(nums):
         while sortedIdx >= 0 and nums[sortedIdx] > key:
             nums[sortedIdx + 1] = nums[sortedIdx]
             sortedIdx = sortedIdx - 1
-        nums[sortedIdx + 1] = key #Thêm key vào mảng trị đã được duyệt
+        nums[sortedIdx + 1] = key  # Thêm key vào mảng trị đã được duyệt
     print(nums)
 
 
-insertionSort([1, 3, 7, 4, 5, 2, 6,8, 13, 8,3, 9])
+# insertionSort([1, 3, 7, 4, 5, 2, 6,8, 13, 8,3, 9])
 # Điểm mấu chốt đó là nếu đối tượng đứng sau mà lớn hơn đối tượng đứng trước thì ta đổi vị trí của chúng nếu thoả điều kiện thì while còn không thì gán index
 # của phần từ đã so sánh lên 1, có nghĩa là đã duyệt qua 1 phần tử.
 # Tạo ra một vòng lặp để quét từ đầu đến cuối các giá trị trong mảng
 # Gán key là đối tượng đang được so sánh, chú ý giá trị sẽ không đổi trong suốt quá trình so sánh ngược về phía trước
 # Tạo một vòng while có tác dụng nếu gặp giá trị đang so sánh mà lớn hơn giá trị đứng trước nó thì cứ hoán đổi vị trị về phía trước cho tới phần tử đầu tiên
 #
+
+
+# Given a sorted array of distinct integers and a target value
+# return the index if the target is found.
+# If not, return the index where it would be if it were inserted in order.
+# You must write an algorithm with O(log n) runtime complexity.
+
+def searchPosition(nums, target):
+    """
+    :type nums: List[int]
+    :type target: int
+    :rtype: int
+    """
+    if target < nums[0]:
+        return 0
+    left = 0
+    right = len(nums) - 1
+
+    pos = -1
+    while left <= right:
+        mid = int(left + (right - left) / 2)
+        if nums[mid] == target:
+            pos = mid
+            return pos
+        elif nums[mid] < target:
+            left = mid + 1
+            pos = left
+        else:
+            right = mid - 1
+            pos = mid
+    return pos
+
+
+print(searchPosition([1, 3, 5, 6], 4))
